@@ -1,0 +1,45 @@
+MC ASSIST V0.1 - QUICK INSTRUCTIONS
+====================================
+
+BEFORE YOU START
+  - Close Mastercam and any related software (CIMCO, etc.).
+  - Accept the Administrator (UAC) prompt when the app opens.
+  - Read the log window as each step runs.
+
+
+USING THE APP
+  1. Select a Mastercam year from the dropdown.
+  2. Click "Begin Clean Uninstall" and confirm.
+  3. Wait until the log shows "Process Finished!".
+
+
+WHAT THE DROPDOWN MEANS
+  2025              = Fully installed; runs silent uninstall + cleanup.
+  2024 (leftover)   = Already removed from Windows, but files/registry
+                      remain. Runs cleanup only (no uninstall wizard).
+
+
+WHAT HAPPENS (4 STEPS)
+  Step 1  Silent Windows uninstall (skipped for leftover cleanup).
+  Step 2  Your document folders are RENAMED with _backup (not deleted).
+          Posts, machines, and configs are preserved.
+  Step 3  Deletes C:\Program Files\Mastercam <Version>
+  Step 4  Removes CNC Software registry keys for that version.
+
+
+AFTER CLEANUP
+  - Reboot if Windows asks, or if licensing issues persist.
+  - To restore user data: rename the _backup folder back after reinstalling
+    the same version, or copy files into the new Mastercam user folder.
+
+
+IF SOMETHING FAILS
+  - "Access is denied" on Step 4: rerun the app and accept the UAC prompt.
+  - Close any Mastercam processes in Task Manager and try again.
+  - Check the log for details. A warning dialog means some steps had errors
+    but cleanup may still have partially completed.
+
+
+NOTE
+  Only one Mastercam version is removed per run. Other installed versions
+  on the same PC are not affected.

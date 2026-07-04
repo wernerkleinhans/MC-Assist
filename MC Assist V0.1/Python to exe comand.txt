@@ -1,0 +1,1 @@
+pyinstaller --noconsole --onefile --uac-admin --icon="MC Assist V0.1.ico" --add-data "MC Assist V0.1.ico;." --add-data "MC Assist V0.1 Instructions.txt;." "MC Assist V0.1.py"

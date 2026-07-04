@@ -1,0 +1,629 @@
+================================================================================
+                              MC ASSIST V0.1
+                    Mastercam Clean Uninstall Utility
+                              User Guide
+================================================================================
+
+Version:  0.1
+Platform: Windows 10 / Windows 11 (64-bit recommended)
+Author:   Internal utility tool
+
+
+================================================================================
+TABLE OF CONTENTS
+================================================================================
+
+  1.  Product Overview
+  2.  What Problem Does This Tool Solve?
+  3.  Key Features
+  4.  System Requirements
+  5.  How to Run MC Assist
+  6.  Building a Standalone .EXE
+  7.  Graphical Interface Walkthrough
+  8.  How Version Detection Works
+  9.  Installed vs. Leftover Cleanup Modes
+  10. The 4-Step Cleanup Process (Detailed)
+  11. Files and Folders Affected
+  12. Registry Keys Affected
+  13. User Data Backup Behaviour
+  14. Silent Uninstallation Details
+  15. Completion Messages and Error Handling
+  16. Troubleshooting
+  17. Important Warnings and Limitations
+  18. Recommended Workflow
+  19. Version History
+
+
+================================================================================
+1. PRODUCT OVERVIEW
+================================================================================
+
+MC Assist V0.1 is a Windows desktop utility designed to completely remove a
+selected version of Mastercam from a computer. It combines:
+
+  * Automated silent Windows uninstallation
+  * Safe preservation of user configuration data
+  * Residual file and folder cleanup
+  * Deep registry cleanup
+
+The tool is intended for IT staff, CNC programmers, or power users who need to
+fully remove Mastercam before reinstalling, migrating to a new version, or
+recovering a machine from a broken or partial uninstall.
+
+MC Assist runs with a simple graphical interface (GUI) and performs all heavy
+work in the background so the window remains responsive during long uninstall
+operations.
+
+
+================================================================================
+2. WHAT PROBLEM DOES THIS TOOL SOLVE?
+================================================================================
+
+Standard Windows uninstallation (via Settings or Control Panel) often leaves
+behind:
+
+  * Folders in C:\Program Files\Mastercam <Version>
+  * CNC Software registry keys under HKCU and HKLM
+  * User document folders containing posts, machine definitions, and configs
+  * Orphaned license and environment path entries
+
+These leftovers can cause problems when:
+
+  * Reinstalling the same Mastercam version
+  * Installing a different Mastercam version on the same machine
+  * Licensing or activation errors persist after uninstall
+  * A previous uninstall was interrupted or performed manually
+
+MC Assist automates the full deep-clean process while protecting critical user
+data by renaming (not deleting) document folders.
+
+
+================================================================================
+3. KEY FEATURES
+================================================================================
+
+  [Automatic Version Detection]
+  Scans the system and populates the dropdown with every Mastercam year found
+  on the machine. No hardcoded version list is required.
+
+  [Leftover / Force Cleanup Detection]
+  Detects versions that are no longer registered in Windows but still have
+  leftover files, registry keys, or document folders. These appear in the
+  dropdown as "<Year> (leftover cleanup)".
+
+  [Silent Unattended Uninstallation]
+  Runs official Windows uninstallers silently with no wizard interaction.
+  Supports both InstallShield and MSI-based uninstall entries.
+
+  [Smart Uninstall Ordering]
+  Uninstalls components in the correct order:
+    1. Main product (InstallShield preferred)
+    2. Version-specific updater (if present)
+    3. Language pack (if present)
+
+  [User Data Backup]
+  Renames user and shared Mastercam document folders with a _backup suffix
+  instead of deleting them.
+
+  [Recursive Registry Cleanup]
+  Removes nested CNC Software registry keys under both HKCU and HKLM.
+
+  [Real-Time Logging]
+  Displays step-by-step progress in the GUI log window.
+
+  [Administrator Elevation]
+  Automatically requests UAC elevation on startup when not already running
+  as Administrator.
+
+  [Non-Freezing Interface]
+  Long-running uninstall operations execute on a background thread so the
+  GUI does not show "Not Responding".
+
+
+================================================================================
+4. SYSTEM REQUIREMENTS
+================================================================================
+
+  Operating System:   Windows 10 or Windows 11
+  Architecture:       64-bit Windows recommended
+  Permissions:        Local Administrator rights (mandatory)
+  Python (optional):  Python 3.x with tkinter (only required when running
+                      the .py script directly, not the compiled .exe)
+  Disk Space:         Sufficient space to hold renamed _backup document
+                      folders (same size as the original folders)
+
+  IMPORTANT: MC Assist must be run as Administrator to modify Program Files
+  and HKLM registry keys. On startup, a UAC prompt will appear. Click YES.
+
+
+================================================================================
+5. HOW TO RUN MC ASSIST
+================================================================================
+
+--- Option A: Run the compiled .EXE (recommended for end users) ---
+
+  1. Copy "MC Assist V0.1.exe" to the target machine (e.g. Desktop).
+  2. Double-click the executable.
+  3. Click YES on the Windows UAC Administrator prompt.
+  4. Select the Mastercam version from the dropdown.
+  5. Click "Begin Clean Uninstall".
+  6. Monitor the log window until "Process Finished!" appears.
+
+
+--- Option B: Run the Python script directly (recommended for development) ---
+
+  From a terminal with your Python environment active:
+
+    python "MC Assist V0.1.py"
+
+  Or with a full path:
+
+    python "D:\PythonProject\Uninstall Mastercam\MC Assist V0.1\MC Assist V0.1.py"
+
+  Notes:
+  * The script correctly handles folder paths that contain spaces.
+  * UAC elevation is triggered automatically when not already running as Admin.
+  * tkinter must be available (included with standard Python on Windows).
+
+
+================================================================================
+6. BUILDING A STANDALONE .EXE
+================================================================================
+
+MC Assist can be compiled into a single portable executable using PyInstaller.
+
+  Prerequisites:
+    pip install pyinstaller
+
+  Build command (run from the MC Assist V0.1 folder):
+
+    pyinstaller --noconsole --onefile --uac-admin "MC Assist V0.1.py"
+
+  Flags explained:
+    --noconsole   Hides the command prompt window; only the GUI is shown.
+    --onefile     Bundles everything into a single .exe file.
+    --uac-admin   Embeds an Administrator manifest so Windows prompts for
+                  elevation automatically.
+
+  Output location:
+    dist\MC Assist V0.1.exe
+
+  Distribution:
+    Copy only the .exe from the dist\ folder to the target machine.
+    No Python installation is required on the target machine.
+
+
+================================================================================
+7. GRAPHICAL INTERFACE WALKTHROUGH
+================================================================================
+
+When MC Assist launches, the main window contains:
+
+  [Version Dropdown]
+  Lists all Mastercam years detected on the system. Examples:
+    2026
+    2025
+    2024 (leftover cleanup)
+
+  [Log Window]
+  A scrollable text area showing real-time progress for each step.
+
+  [Begin Clean Uninstall]  (red button)
+  Starts the selected version's cleanup process after a confirmation dialog.
+
+  [View Readme / Instructions]  (blue button)
+  Opens a brief in-app summary of the 4-step process.
+
+  During operation:
+  * The "Begin Clean Uninstall" button is disabled to prevent duplicate runs.
+  * The log window updates live while uninstallers run in the background.
+  * The window should remain responsive throughout (no "Not Responding").
+
+  After completion:
+  * A success or warning dialog appears depending on whether any errors occurred.
+  * The version dropdown refreshes automatically to reflect the new system state.
+
+
+================================================================================
+8. HOW VERSION DETECTION WORKS
+================================================================================
+
+MC Assist does NOT use a fixed list of years. It dynamically scans multiple
+independent locations on the system and extracts the 4-digit year from each
+Mastercam artifact found.
+
+  Scan Location                              Example
+  -----------------------------------------  ---------------------------------
+  Windows Uninstall registry (HKLM)          DisplayName: Mastercam 2025
+  Program Files folders                      C:\Program Files\Mastercam 2025
+  Program Files (x86) folders                C:\Program Files (x86)\Mastercam 2025
+  HKLM CNC Software registry                 SOFTWARE\CNC Software\Mastercam 2025
+  HKCU CNC Software registry                 SOFTWARE\CNC Software\Mastercam 2025
+  User Documents (local)                     My Mastercam 2025
+  User Documents (local, 2025+ naming)       Mastercam 2025
+  User OneDrive Documents                    My Mastercam 2025
+  Public Shared Documents                    Shared Mastercam 2025
+
+Any year found in ANY of these locations is added to the dropdown, sorted
+newest first (e.g. 2026, 2025, 2024).
+
+This means MC Assist can detect:
+  * Fully installed versions
+  * Partially removed versions with leftover registry or document folders
+  * Versions whose Program Files folder remains but Windows uninstall entry is gone
+
+
+================================================================================
+9. INSTALLED vs. LEFTOVER CLEANUP MODES
+================================================================================
+
+For each detected version, MC Assist determines one of two states:
+
+  --- INSTALLED ---
+  Windows still has an official uninstall registry entry for this version.
+  The dropdown shows the year only (e.g. "2025").
+
+  Behaviour:
+    Step 1 runs silent Windows uninstallers (main product, updater, language pack).
+    Steps 2, 3, and 4 follow regardless of Step 1 outcome.
+
+  --- LEFTOVER CLEANUP ---
+  No Windows uninstall entry exists, but leftover artifacts were found (registry
+  keys, Program Files folder, and/or document folders).
+  The dropdown shows "<Year> (leftover cleanup)" (e.g. "2024 (leftover cleanup)").
+
+  Behaviour:
+    Step 1 is skipped entirely.
+    Steps 2, 3, and 4 run to manually purge remaining artifacts.
+
+  When selecting a leftover version, the confirmation dialog lists exactly what
+  was detected before cleanup begins.
+
+
+================================================================================
+10. THE 4-STEP CLEANUP PROCESS (DETAILED)
+================================================================================
+
+When you click "Begin Clean Uninstall", MC Assist executes the following steps
+in strict sequential order.
+
+
+  STEP 1: SILENT WINDOWS UNINSTALLATION
+  --------------------------------------
+  Scans the Windows uninstall registry (64-bit and 32-bit Wow6432Node hives)
+  for all entries matching the selected Mastercam version, including:
+
+    * Main product (InstallShield uninstaller preferred over duplicate MSI entry)
+    * Mastercam <Version> Updater (if installed)
+    * Mastercam <Version> English Language Pack (if installed)
+
+  Each uninstall command is converted to a silent form:
+    InstallShield:  original command + "-silent" flag
+    MSI (MsiExec):  original command + "/qn /norestart" flags
+
+  Uninstall order:
+    1. Main product (InstallShield)
+    2. Updater
+    3. Language pack
+
+  Each uninstaller is allowed up to 1 hour to complete. If a timeout occurs,
+  MC Assist logs a warning and continues with the remaining steps.
+
+  If no uninstall entries are found (leftover mode), this step is skipped.
+
+
+  STEP 2: USER DATA BACKUP AND PRESERVATION
+  ------------------------------------------
+  Scans the following locations for version-specific Mastercam user folders:
+
+    %USERPROFILE%\OneDrive\Documents\My Mastercam <Version>
+    %USERPROFILE%\OneDrive\Documents\Mastercam <Version>
+    %USERPROFILE%\Documents\My Mastercam <Version>
+    %USERPROFILE%\Documents\Mastercam <Version>
+    %PUBLIC%\Documents\Shared Mastercam <Version>
+
+  If a folder exists, it is RENAMED (not deleted) by appending "_backup":
+
+    My Mastercam 2024  -->  My Mastercam 2024_backup
+
+  If a backup name already exists from a previous run, a numeric suffix is added:
+
+    My Mastercam 2024_backup     (first run)
+    My Mastercam 2024_backup_1   (second run)
+    My Mastercam 2024_backup_2   (third run)
+
+  This preserves custom post-processors, machine files, tool libraries, and
+  other user configurations.
+
+
+  STEP 3: RESIDUAL PROGRAM FILES PURGE
+  -------------------------------------
+  Permanently deletes the entire installation directory:
+
+    C:\Program Files\Mastercam <Version>
+
+  If the folder does not exist, the log reports "Folder already clean".
+
+
+  STEP 4: REGISTRY DEEP CLEAN
+  ----------------------------
+  Recursively removes all nested subkeys and then deletes:
+
+    HKEY_CURRENT_USER\Software\CNC Software\Mastercam <Version>
+    HKEY_LOCAL_MACHINE\SOFTWARE\CNC Software\Mastercam <Version>
+
+  Recursive deletion is required because Mastercam registry keys contain nested
+  subkeys (Configurations, Window Positions, add-ins, etc.) that cannot be
+  removed with a single flat delete operation.
+
+  Each successfully deleted key is logged individually in the GUI.
+
+
+================================================================================
+11. FILES AND FOLDERS AFFECTED
+================================================================================
+
+  ACTION: DELETED (Step 3)
+  -------------------------
+  C:\Program Files\Mastercam <Version>\          (entire folder tree)
+
+  ACTION: RENAMED / BACKED UP (Step 2)
+  -------------------------------------
+  C:\Users\<Username>\Documents\My Mastercam <Version>
+  C:\Users\<Username>\Documents\Mastercam <Version>
+  C:\Users\<Username>\OneDrive\Documents\My Mastercam <Version>
+  C:\Users\<Username>\OneDrive\Documents\Mastercam <Version>
+  C:\Users\Public\Documents\Shared Mastercam <Version>
+
+  NOT TOUCHED by MC Assist
+  -------------------------
+  Other Mastercam versions installed on the same machine
+  C:\Program Files\Common Files\Mastercam\  (shared licensing components)
+  C:\Program Files\Mastercam <Version> Updater\  (separate updater product)
+  Document folders for versions other than the one selected
+  Any _backup folders created by previous runs
+
+
+================================================================================
+12. REGISTRY KEYS AFFECTED
+================================================================================
+
+  REMOVED (Step 4, recursive):
+  -----------------------------
+  HKCU\Software\CNC Software\Mastercam <Version>   (and all subkeys)
+  HKLM\SOFTWARE\CNC Software\Mastercam <Version>   (and all subkeys)
+
+  READ ONLY (for detection, not modified):
+  -----------------------------------------
+  HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*
+  HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*
+  HKLM\SOFTWARE\CNC Software\   (enumerated for version detection)
+  HKCU\SOFTWARE\CNC Software\   (enumerated for version detection)
+
+  NOT TOUCHED:
+  ------------
+  HKLM\SOFTWARE\CNC Software\ActivationWizard
+  HKLM\SOFTWARE\CNC Software\Mastercam <Other Version>
+  Windows uninstall entries for other Mastercam versions
+
+
+================================================================================
+13. USER DATA BACKUP BEHAVIOUR
+================================================================================
+
+MC Assist never permanently deletes user document folders. They are always
+renamed with a _backup suffix.
+
+To restore backed-up data after reinstalling Mastercam:
+
+  1. Install the target Mastercam version.
+  2. Close Mastercam completely.
+  3. Rename the _backup folder back to its original name, OR
+  4. Copy specific files (posts, machines, tools) from the _backup folder
+     into the newly created Mastercam user folder.
+
+Example restore (PowerShell):
+
+  Rename-Item "C:\Users\Werner\Documents\My Mastercam 2024_backup" `
+              "C:\Users\Werner\Documents\My Mastercam 2024"
+
+Note: Only restore a backup if you are reinstalling the SAME version. Restoring
+a 2024 backup into a 2025 installation may cause compatibility issues.
+
+
+================================================================================
+14. SILENT UNINSTALLATION DETAILS
+================================================================================
+
+MC Assist converts official Windows uninstall strings into silent commands:
+
+  InstallShield uninstaller example:
+    Original:  "...\uninstaller.exe" -remove -runfromtemp -language:1033
+    Silent:    "...\uninstaller.exe" -remove -runfromtemp -language:1033 -silent
+
+  MSI uninstaller example:
+    Original:  MsiExec.exe /X{GUID}
+    Silent:    MsiExec.exe /X{GUID} /qn /norestart
+
+  Exit codes handled:
+    0     = Success
+    3010  = Success, reboot may be required (logged as success)
+    Other = Logged as a warning; cleanup steps continue regardless
+
+  Timeout: Each uninstall command has a maximum wait time of 3600 seconds
+  (1 hour). After timeout, the step is abandoned and cleanup continues.
+
+
+================================================================================
+15. COMPLETION MESSAGES AND ERROR HANDLING
+================================================================================
+
+  [Success Dialog]
+  Shown when all steps complete without errors.
+  Message: "Mastercam <Version> uninstallation and cleanup process complete."
+
+  [Completed With Warnings Dialog]
+  Shown when one or more steps reported errors (uninstaller failure, file
+  deletion error, registry access denied, etc.).
+  Message advises reviewing the log and rerunning as Administrator if registry
+  cleanup failed.
+
+  All errors and warnings are written to the GUI log window. Nothing is silently
+  ignored without a log entry.
+
+  After completion, the version dropdown refreshes. Successfully removed versions
+  disappear from the list. Partially cleaned versions may remain as
+  "(leftover cleanup)" entries.
+
+
+================================================================================
+16. TROUBLESHOOTING
+================================================================================
+
+  PROBLEM: UAC prompt does not appear / tool exits immediately
+  -------------------------------------------------------------
+  Cause:   Running from a restricted environment or incorrect Python path.
+  Fix:     Right-click the .exe or Python script and choose "Run as
+           administrator" manually.
+
+
+  PROBLEM: "Access is denied" during Step 4 (registry cleanup)
+  -------------------------------------------------------------
+  Cause:   Not running as Administrator, or Mastercam is still open.
+  Fix:     Close Mastercam, CIMCO, and any related processes in Task Manager.
+           Rerun MC Assist and accept the UAC prompt. Registry keys with nested
+           subkeys require both admin rights and recursive deletion (handled
+           automatically by MC Assist V0.1).
+
+
+  PROBLEM: Window shows "Not Responding"
+  ---------------------------------------
+  Cause:   Running an older build that executes uninstallers on the main GUI
+           thread.
+  Fix:     Use MC Assist V0.1 which runs uninstallers on a background thread.
+           The window should remain responsive throughout.
+
+
+  PROBLEM: Step 1 uninstaller times out
+  --------------------------------------
+  Cause:   Uninstaller waiting for a locked file or another MSI operation.
+  Fix:     Close all Mastercam-related processes. Check Task Manager for
+           msiexec.exe or uninstaller.exe processes. Reboot if necessary,
+           then rerun MC Assist. Steps 2-4 will still clean remaining artifacts.
+
+
+  PROBLEM: "Error deleting program files" in Step 3
+  --------------------------------------------------
+  Cause:   A Mastercam process or service still has files open in Program Files.
+  Fix:     Close Mastercam and related software. End Mastercam processes in
+           Task Manager. Reboot if the folder is still locked, then rerun.
+
+
+  PROBLEM: Version appears as "(leftover cleanup)" but I thought it was installed
+  ---------------------------------------------------------------------------------
+  Cause:   The Windows uninstall registry entry was removed (manually or by a
+           previous partial uninstall) but files or registry keys remain.
+  Fix:     This is expected. Select the leftover entry and run force cleanup.
+           MC Assist will skip Step 1 and run Steps 2-4.
+
+
+  PROBLEM: Version not appearing in dropdown at all
+  ---------------------------------------------------
+  Cause:   No Mastercam artifacts detected in any scanned location.
+  Fix:     The version may already be fully removed. Check manually:
+             - C:\Program Files\Mastercam <Version>
+             - Registry Editor: HKLM\SOFTWARE\CNC Software
+             - Your Documents folder for My Mastercam <Version>
+
+
+  PROBLEM: Backup folder not created in Step 2
+  ----------------------------------------------
+  Cause:   The user document folder for that version does not exist on this
+           machine (common if Mastercam was installed but never launched).
+  Fix:     No action needed. MC Assist silently skips paths that do not exist.
+
+
+  PROBLEM: Multiple Mastercam versions on one machine
+  ----------------------------------------------------
+  MC Assist removes ONE version at a time. Other installed versions are not
+  affected. Run the tool separately for each version you wish to remove.
+
+
+================================================================================
+17. IMPORTANT WARNINGS AND LIMITATIONS
+================================================================================
+
+  WARNING: This tool permanently deletes Program Files folders and registry
+           keys. This action cannot be undone through MC Assist.
+
+  WARNING: Always verify the selected version in the dropdown before clicking
+           "Begin Clean Uninstall". Removing the wrong version requires
+           reinstalling that version from scratch.
+
+  WARNING: Close Mastercam and all related applications (CIMCO, post processors
+           with open Mastercam hooks) before running MC Assist.
+
+  WARNING: MC Assist removes one Mastercam version at a time. It does not remove
+           shared components such as the Mastercam Licensing Installer located
+           in C:\Program Files\Common Files\Mastercam\.
+
+  WARNING: A system reboot may be required after uninstallation, particularly
+           if Windows returns exit code 3010 during Step 1.
+
+  LIMITATION: MC Assist is designed for Mastercam versions that follow the
+              standard CNC Software installation layout (2024, 2025, 2026, etc.).
+              Non-standard or very old installations may not be fully detected.
+
+  LIMITATION: Silent InstallShield uninstall depends on the vendor's uninstaller
+              supporting the -silent flag. If a dialog appears during Step 1,
+              complete it manually. Steps 2-4 will still run afterward.
+
+  LIMITATION: MC Assist does not remove Mastercam entries from the Windows
+              "Apps & Features" list if the uninstall registry key was already
+              deleted before running the tool (leftover cleanup mode).
+
+
+================================================================================
+18. RECOMMENDED WORKFLOW
+================================================================================
+
+  Full uninstall and clean reinstall of Mastercam 2025:
+
+    1. Close Mastercam and all related software.
+    2. Launch MC Assist V0.1 and accept the UAC Administrator prompt.
+    3. Select "2025" from the dropdown.
+    4. Click "Begin Clean Uninstall" and confirm.
+    5. Wait for "Process Finished!" in the log window.
+    6. Reboot the machine if prompted or if licensing issues persist.
+    7. Install Mastercam 2025 fresh from the official installer.
+    8. (Optional) Restore user data from the _backup folder if needed.
+
+  Cleaning up after a broken manual uninstall:
+
+    1. Launch MC Assist V0.1 as Administrator.
+    2. Look for "<Year> (leftover cleanup)" in the dropdown.
+    3. Select it and confirm the force cleanup dialog.
+    4. Review the log to confirm registry keys and folders were removed.
+    5. Reboot if HKLM cleanup was performed.
+
+
+================================================================================
+19. VERSION HISTORY
+================================================================================
+
+  V0.1  - Initial release
+          * Automatic version detection from registry, Program Files, and
+            document folders
+          * Silent unattended uninstallation (InstallShield and MSI)
+          * User document folder backup via rename
+          * Program Files residual folder purge
+          * Recursive registry cleanup (HKCU and HKLM)
+          * Leftover / force cleanup mode for partially removed installations
+          * Background thread execution (non-freezing GUI)
+          * UAC auto-elevation on startup
+          * Warning dialog on partial failure
+
+
+================================================================================
+                              END OF DOCUMENT
+================================================================================
