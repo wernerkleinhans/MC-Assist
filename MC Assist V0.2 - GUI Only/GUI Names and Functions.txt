@@ -1,0 +1,144 @@
+Main Window-----------------------------------------------------------------------------------
+###Main window Functions###
+open_uninstall_settings_f
+open_uninstall_reinstall_settings_f
+
+
+dropdown_callback_f
+
+###Button Names###
+open_uninstall_settings
+open_uninstall_reinstall_settings
+show_files_on_pc_window
+
+###Dropdown Names###
+dropdown
+
+
+Uninstall window------------------------------------------------------------------------------
+###Uninstall window Functions###
+start_uninstall_f
+
+uninstall_select_all_f
+
+Uninstall_select_mc_f
+uninstall_select_my_backup_f
+uninstall_select_shared_backup_f
+uninstall_select_program_files_delete_f
+uninstall_select_registry_delete_f
+
+###Uninsall Label Name###
+uninstall_options
+
+###Button Names###
+start_uninstall
+cancel_uninstall
+
+###Check Boxes names###
+uninstall_select_all
+
+uninstall_select_mc
+uninstall_select_my_backup
+uninstall_select_shared_backup
+uninstall_select_program_files_delete
+uninstall_select_registry_delete
+
+###Check Boxes var###
+uninstall_select_all_var
+
+uninstall_select_mc_var
+uninstall_select_my_backup_var
+uninstall_select_shared_backup_var
+uninstall_select_program_files_delete_var
+uninstall_select_registry_delete_var
+
+
+Uninstall Reinstall window-------------------------------------------------------------
+Uninstall part------------------------------------------------------
+###Uninstall Reinstall window Functions###
+start_uninstall_reinstall_f
+
+uninstall_reinstall_uninstall_select_all_f
+
+uninstall_reinstall_uninstall_mc_f
+uninstall_reinstall_my_backup_f
+uninstall_reinstall_shared_backup_f
+uninstall_reinstall_program_files_delete_f
+uninstall_reinstall_registry_delete_f
+
+###Label Name###
+uninstall_reinstall_uninstall_options
+
+
+###Button Names###
+start_uninstall_reinstall
+cancel_uninstall_reinstall
+
+###Check Box Names###
+uninstall_reinstall_uninstall_select_all
+
+uninstall_reinstall_uninstall_mc
+uninstall_reinstall_my_backup
+uninstall_reinstall_shared_backup
+uninstall_reinstall_program_files_delete
+uninstall_reinstall_registry_delete
+
+###Check Box Var###
+uninstall_reinstall_uninstall_select_all_var
+
+uninstall_reinstall_uninstall_mc_var
+uninstall_reinstall_my_backup_var
+uninstall_reinstall_shared_backup_var
+uninstall_reinstall_program_files_delete_var
+uninstall_reinstall_registry_delete_var
+
+Reinstall part----------------------------------------------------------
+###Uninstall Reinstall window Functions###
+uninstall_reinstall_language_select_f
+uninstall_reinstall_unit_select_f
+uninstall_reinstall_users_select_f
+
+uninstall_reinstall_license_f
+uninstall_reinstall_restore_backup_f
+
+uninstall_reinstall_select_install_file_f
+uninstall_reinstall_select_language_file_f
+
+###file entry name###
+uninstall_reinstall_file_entry_install
+uninstall_reinstall_file_entry_language
+
+###Button Names###
+uninstall_reinstall_select_install_file
+uninstall_reinstall_select_language_file
+
+###segemented button names###
+uninstall_reinstall_language_select
+uninstall_reinstall_unit_select
+uninstall_reinstall_users_select
+
+###Check Box Names###
+uninstall_reinstall_license
+uninstall_reinstall_restore_backup
+
+###Check Box Var###
+uninstall_reinstall_license_var
+uninstall_reinstall_restore_backup_var
+
+Show Files On PC Window------------------------------------------------------------------
+###Show Files window Functions###
+show_files_my_mc_f
+show_files__shared_mc_f
+show_files_program_files_f
+show_files_registry_f
+
+###Label Name###
+show_files_files_on_pc
+
+###Button Names###
+show_files_cancel
+
+show_files_my_mc
+show_files__shared_mc
+show_files_program_files
+show_files_registry
