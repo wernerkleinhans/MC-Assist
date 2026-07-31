@@ -1,5 +1,5 @@
 import customtkinter
-from TkToolTip import ToolTip
+from tktooltip import ToolTip
 from tkinter import filedialog
 
 #CTK Var
