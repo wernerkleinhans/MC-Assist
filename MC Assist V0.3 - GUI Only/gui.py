@@ -4,7 +4,12 @@ from tkinter import filedialog
 
 #CTK Var
 text_color = "#ffffff"
-main_color = "#00ffae"    #8a12ff(dark purple) #b366ff(light purple) #ff5901 (orange) #ff6919 (light orange) #00ffae(snow)
+main_color = "#99e0ff"
+#8a12ff(dark purple) #b366ff(light purple) #c78fff (supper light purple)
+#ff5901 (orange) #ff6919 (light orange)
+#00ffae(snow)
+#99e0ff (light blue)
+#fff494 (light yello)
 dropdown_button_color = "#00db96"
 hover_color = "#3d3d3d" #3d3d3d (gray)  #a64dff purple
 background_color = "#242424"
@@ -22,12 +27,12 @@ main_app.configure(bg_color=background_color)
 
 
 #Uninstall Settings Window
-def open_uninstall_settings_f():
-    print("open_uninstall_settings_f")
+def start_uninstall_f():
+    print("start_uninstall_f")
 
 #Uninstall/Reinstall button
-def open_uninstall_reinstall_settings_f():
-    print("open_uninstall_reinstall_settings_f")
+def start_install_f():
+    print("start_reinstall_f")
 
 #Show Left over files in a new window
 def show_files_on_pc_window_f():
@@ -104,140 +109,221 @@ def show_files_on_pc_window_f():
 def dropdown_callback_f(choice):
     print(f"dropdown_callback_f: {choice}")
     if choice == "Select MC Version...":
-        open_uninstall_settings.configure(state="disabled")
-        open_uninstall_reinstall_settings.configure(state="disabled")
-        show_files_on_pc_window.configure(state="disabled")
+        #install_enable.configure(state="disabled", border_color=background_color_light, border_width=2)
+        uninstall_enable.configure(state="disabled", border_color=background_color_light, border_width=2)
+        start_uninstall.configure(state="disabled", border_color=background_color_light, border_width=2)
+        start_install.configure(state="disabled", border_color=background_color_light, border_width=2)
+
+        uninstall_select_all.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_mc.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_my_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_shared_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_program_files_delete.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_registry_delete.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+
+        install_language_select.configure(state="disabled", selected_color=background_color_light)
+        install_unit_select.configure(state="disabled", selected_color=background_color_light)
+        install_users_select.configure(state="disabled", selected_color=background_color_light)
+        install_license.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        install_restore_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        install_select_install_file.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_select_language_file.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_file_entry_language.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_file_entry_install.configure(state="disabled", border_color=background_color_light, border_width=2)
+
+        show_files_on_pc_window.configure(state="disabled", border_color=background_color_light, border_width=2)
     else:
-        open_uninstall_settings.configure(state="normal")
-        open_uninstall_reinstall_settings.configure(state="normal")
-        show_files_on_pc_window.configure(state="normal")
+        install_enable.configure(state="normal", border_color=main_color, border_width=1)
+        uninstall_enable.configure(state="normal", border_color=main_color, border_width=1)
+        show_files_on_pc_window.configure(state="normal", border_color=main_color, border_width=1)
+
+
 
 # Callback Uninstall
-def start_uninstall_reinstall_f():
-    print("start_uninstall_reinstall_f")
-
 def uninstall_enable_f():
-    print("uninstall_enable_f", uninstall_enable.get())
+    print("uninstall_enable_f:", uninstall_enable.get())
+    if uninstall_enable.get() == "off":
+        start_uninstall.configure(state="disabled",border_color=background_color_light, border_width=2)
 
-def uninstall_reinstall_uninstall_select_all_f():
-    print("uninstall_reinstall_uninstall_select_all_f:", uninstall_reinstall_uninstall_select_all.get())
+        uninstall_select_all.configure(state="disabled", border_color=background_color_light, border_width=2, fg_color=background_color_light)
+        uninstall_mc.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_my_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_shared_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_program_files_delete.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        uninstall_registry_delete.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+    else:
+        start_uninstall.configure(state="normal", border_color=main_color, border_width=1)
+
+        uninstall_select_all.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        uninstall_mc.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        uninstall_my_backup.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        uninstall_shared_backup.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        uninstall_program_files_delete.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        uninstall_registry_delete.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+
+    if uninstall_enable.get() == "on" and install_enable.get() == "on":
+        start_install.configure(text="Uninstall/Install")
+        start_uninstall.configure(state="disabled", border_color=background_color_light, border_width=2)
+    else:
+        start_install.configure(text="Install")
+
+
+def uninstall_select_all_f():
+    print("uninstall_select_all_f:", uninstall_select_all.get())
     # Check what state the "Select All" master variable is currently in
-    if uninstall_reinstall_uninstall_select_all_var.get() == "on":
+    if uninstall_select_all_var.get() == "on":
         # If master is checked, force select ALL sub-checkboxes
-        uninstall_reinstall_uninstall_mc.select()
-        uninstall_reinstall_my_backup.select()
-        uninstall_reinstall_shared_backup.select()
-        uninstall_reinstall_program_files_delete.select()
-        uninstall_reinstall_registry_delete.select()
+        uninstall_mc.select()
+        uninstall_my_backup.select()
+        uninstall_shared_backup.select()
+        uninstall_program_files_delete.select()
+        uninstall_registry_delete.select()
     else:
         # If master is unchecked, force deselect ALL sub-checkboxes
-        uninstall_reinstall_uninstall_mc.deselect()
-        uninstall_reinstall_my_backup.deselect()
-        uninstall_reinstall_shared_backup.deselect()
-        uninstall_reinstall_program_files_delete.deselect()
-        uninstall_reinstall_registry_delete.deselect()
+        uninstall_mc.deselect()
+        uninstall_my_backup.deselect()
+        uninstall_shared_backup.deselect()
+        uninstall_program_files_delete.deselect()
+        uninstall_registry_delete.deselect()
 
-def uninstall_reinstall_uninstall_mc_f():
-    print("uninstall_reinstall_uninstall_mc_f:", uninstall_reinstall_uninstall_mc.get())
-
-    """Unchecks 'Select All' if the user manually unchecks any single option."""
-    # List of all your sub-variables
-    all_checked = (
-            uninstall_reinstall_uninstall_mc_var.get() == "on" and
-            uninstall_reinstall_my_backup_var.get() == "on" and
-            uninstall_reinstall_shared_backup_var.get() == "on" and
-            uninstall_reinstall_program_files_delete_var.get() == "on" and
-            uninstall_reinstall_registry_delete.get() == "on"
-    )
-
-    if all_checked:
-        uninstall_reinstall_uninstall_select_all.select()
-    else:
-        # If even one item is manually unchecked, turn off the "Select All" checkmark
-        uninstall_reinstall_uninstall_select_all.deselect()
-
-def uninstall_reinstall_my_backup_f():
-    print("uninstall_reinstall_my_backup_f:", uninstall_reinstall_my_backup.get())
+def uninstall_mc_f():
+    print("uninstall_mc_f:", uninstall_mc.get())
 
     """Unchecks 'Select All' if the user manually unchecks any single option."""
     # List of all your sub-variables
     all_checked = (
-            uninstall_reinstall_uninstall_mc_var.get() == "on" and
-            uninstall_reinstall_my_backup_var.get() == "on" and
-            uninstall_reinstall_shared_backup_var.get() == "on" and
-            uninstall_reinstall_program_files_delete_var.get() == "on" and
-            uninstall_reinstall_registry_delete.get() == "on"
+            uninstall_mc_var.get() == "on" and
+            uninstall_my_backup_var.get() == "on" and
+            uninstall_shared_backup_var.get() == "on" and
+            uninstall_program_files_delete_var.get() == "on" and
+            uninstall_registry_delete.get() == "on"
     )
 
     if all_checked:
-        uninstall_reinstall_uninstall_select_all.select()
+        uninstall_select_all.select()
     else:
         # If even one item is manually unchecked, turn off the "Select All" checkmark
-        uninstall_reinstall_uninstall_select_all.deselect()
+        uninstall_select_all.deselect()
 
-def uninstall_reinstall_shared_backup_f():
-    print("uninstall_reinstall_shared_backup_f:", uninstall_reinstall_shared_backup.get())
+def uninstall_my_backup_f():
+    print("uninstall_my_backup_f:", uninstall_my_backup.get())
 
     """Unchecks 'Select All' if the user manually unchecks any single option."""
     # List of all your sub-variables
     all_checked = (
-            uninstall_reinstall_uninstall_mc_var.get() == "on" and
-            uninstall_reinstall_my_backup_var.get() == "on" and
-            uninstall_reinstall_shared_backup_var.get() == "on" and
-            uninstall_reinstall_program_files_delete_var.get() == "on" and
-            uninstall_reinstall_registry_delete.get() == "on"
+            uninstall_mc_var.get() == "on" and
+            uninstall_my_backup_var.get() == "on" and
+            uninstall_shared_backup_var.get() == "on" and
+            uninstall_program_files_delete_var.get() == "on" and
+            uninstall_registry_delete.get() == "on"
     )
 
     if all_checked:
-        uninstall_reinstall_uninstall_select_all.select()
+        uninstall_select_all.select()
     else:
         # If even one item is manually unchecked, turn off the "Select All" checkmark
-        uninstall_reinstall_uninstall_select_all.deselect()
+        uninstall_select_all.deselect()
 
-def uninstall_reinstall_program_files_delete_f():
-    print("uninstall_reinstall_program_files_delete_f:", uninstall_reinstall_program_files_delete.get())
+def uninstall_shared_backup_f():
+    print("uninstall_shared_backup_f:", uninstall_shared_backup.get())
 
     """Unchecks 'Select All' if the user manually unchecks any single option."""
     # List of all your sub-variables
     all_checked = (
-            uninstall_reinstall_uninstall_mc_var.get() == "on" and
-            uninstall_reinstall_my_backup_var.get() == "on" and
-            uninstall_reinstall_shared_backup_var.get() == "on" and
-            uninstall_reinstall_program_files_delete_var.get() == "on" and
-            uninstall_reinstall_registry_delete.get() == "on"
+            uninstall_mc_var.get() == "on" and
+            uninstall_my_backup_var.get() == "on" and
+            uninstall_shared_backup_var.get() == "on" and
+            uninstall_program_files_delete_var.get() == "on" and
+            uninstall_registry_delete.get() == "on"
     )
 
     if all_checked:
-        uninstall_reinstall_uninstall_select_all.select()
+        uninstall_select_all.select()
     else:
         # If even one item is manually unchecked, turn off the "Select All" checkmark
-        uninstall_reinstall_uninstall_select_all.deselect()
+        uninstall_select_all.deselect()
 
-def uninstall_reinstall_registry_delete_f():
-    print("uninstall_reinstall_registry_delete_f:", uninstall_reinstall_registry_delete.get())
+def uninstall_program_files_delete_f():
+    print("uninstall_program_files_delete_f:", uninstall_program_files_delete.get())
 
     """Unchecks 'Select All' if the user manually unchecks any single option."""
     # List of all your sub-variables
     all_checked = (
-            uninstall_reinstall_uninstall_mc_var.get() == "on" and
-            uninstall_reinstall_my_backup_var.get() == "on" and
-            uninstall_reinstall_shared_backup_var.get() == "on" and
-            uninstall_reinstall_program_files_delete_var.get() == "on" and
-            uninstall_reinstall_registry_delete.get() == "on"
+            uninstall_mc_var.get() == "on" and
+            uninstall_my_backup_var.get() == "on" and
+            uninstall_shared_backup_var.get() == "on" and
+            uninstall_program_files_delete_var.get() == "on" and
+            uninstall_registry_delete.get() == "on"
     )
 
     if all_checked:
-        uninstall_reinstall_uninstall_select_all.select()
+        uninstall_select_all.select()
     else:
         # If even one item is manually unchecked, turn off the "Select All" checkmark
-        uninstall_reinstall_uninstall_select_all.deselect()
+        uninstall_select_all.deselect()
+
+def uninstall_registry_delete_f():
+    print("uninstall_registry_delete_f:", uninstall_registry_delete.get())
+
+    """Unchecks 'Select All' if the user manually unchecks any single option."""
+    # List of all your sub-variables
+    all_checked = (
+            uninstall_mc_var.get() == "on" and
+            uninstall_my_backup_var.get() == "on" and
+            uninstall_shared_backup_var.get() == "on" and
+            uninstall_program_files_delete_var.get() == "on" and
+            uninstall_registry_delete.get() == "on"
+    )
+
+    if all_checked:
+        uninstall_select_all.select()
+    else:
+        # If even one item is manually unchecked, turn off the "Select All" checkmark
+        uninstall_select_all.deselect()
 
 # Callback Install
 def install_enable_f():
     print("install_enable_f:", install_enable.get())
+    if install_enable.get() == "off":
+        start_install.configure(state="disabled",border_color=background_color_light, border_width=2)
 
-def uninstall_reinstall_language_select_f(values):
-    print(f"uninstall_reinstall_language_select_f: {values}")
+        install_language_select.configure(state="disabled",selected_color=background_color_light)
+        install_unit_select.configure(state="disabled", selected_color=background_color_light)
+        install_users_select.configure(state="disabled", selected_color=background_color_light)
+        install_license.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        install_restore_backup.configure(state="disabled", border_color=background_color_light, border_width=2,fg_color=background_color_light)
+        install_select_install_file.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_select_language_file.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_file_entry_language.configure(state="disabled", border_color=background_color_light, border_width=2)
+        install_file_entry_install.configure(state="disabled", border_color=background_color_light, border_width=2)
+    else:
+        start_install.configure(state="normal", border_color=main_color, border_width=1)
+
+        install_language_select.configure(state="normal", selected_color=main_color)
+        install_unit_select.configure(state="normal", selected_color=main_color)
+        install_users_select.configure(state="normal", selected_color=main_color)
+        install_license.configure(state="normal", border_color=main_color, border_width=1,fg_color=main_color)
+        install_restore_backup.configure(state="normal", border_color=main_color, border_width=1, fg_color=main_color)
+        install_select_install_file.configure(state="normal", border_color=main_color, border_width=1)
+        install_select_language_file.configure(state="normal", border_color=main_color, border_width=1)
+        install_file_entry_language.configure(state="normal", border_color=main_color, border_width=1)
+        install_file_entry_install.configure(state="normal", border_color=main_color, border_width=1)
+
+
+
+    if uninstall_enable.get() == "on" and install_enable.get() == "on":
+        start_install.configure(text="Uninstall/Install")
+        start_uninstall.configure(state="disabled", border_color=background_color_light, border_width=2)
+    else:
+        start_install.configure(text="Install")
+        if uninstall_enable.get() == "on":
+            start_uninstall.configure(state="normal", border_color=main_color, border_width=1)
+        else:
+            start_uninstall.configure(state="disabled", border_color=background_color_light, border_width=2)
+
+
+def install_language_select_f(values):
+    print(f"install_language_select_f: {values}")
 
     # if values == "English":
     #     print("Loading English language translation profiles...")
@@ -246,20 +332,20 @@ def uninstall_reinstall_language_select_f(values):
     #     print("Loading alternative language translation profiles...")
     #     # Add your alternative text changes here
 
-def uninstall_reinstall_unit_select_f(values):
-    print(f"uninstall_reinstall_unit_select_f: {values}")
+def install_unit_select_f(values):
+    print(f"install_unit_select_f: {values}")
 
-def uninstall_reinstall_users_select_f(values):
-    print(f"uninstall_reinstall_users_select_f: {values}")
+def install_users_select_f(values):
+    print(f"install_users_select_f: {values}")
 
-def uninstall_reinstall_license_f():
-    print("uninstall_reinstall_license_f")
+def install_license_f():
+    print("install_license_f")
 
-def uninstall_reinstall_restore_backup_f():
-    print("uninstall_reinstall_restore_backup_f")
+def install_restore_backup_f():
+    print("install_restore_backup_f")
 
-def uninstall_reinstall_select_install_file_f():
-    print("uninstall_reinstall_select_install_file_f")
+def install_select_install_file_f():
+    print("install_select_install_file_f")
     # Opens the OS file picker dialog
     file_path = filedialog.askopenfilename(
         title="Select Mastercam File",
@@ -270,12 +356,12 @@ def uninstall_reinstall_select_install_file_f():
     # If the user selected a file (didn't click cancel)
     if file_path:
         # Clear the old path text inside the input entry field
-        uninstall_reinstall_file_entry_install.delete(0, "end")
+        install_file_entry_install.delete(0, "end")
         # Insert the newly selected file path text string
-        uninstall_reinstall_file_entry_install.insert(0, file_path)
+        install_file_entry_install.insert(0, file_path)
 
-def uninstall_reinstall_select_language_file_f():
-    print("uninstall_reinstall_select_language_file_f")
+def install_select_language_file_f():
+    print("install_select_language_file_f")
     # Opens the OS file picker dialog
     file_path = filedialog.askopenfilename(
         title="Select Language File",
@@ -286,9 +372,9 @@ def uninstall_reinstall_select_language_file_f():
     # If the user selected a file (didn't click cancel)
     if file_path:
         # Clear the old path text inside the input entry field
-        uninstall_reinstall_file_entry_language.delete(0, "end")
+        install_file_entry_language.delete(0, "end")
         # Insert the newly selected file path text string
-        uninstall_reinstall_file_entry_language.insert(0, file_path)
+        install_file_entry_language.insert(0, file_path)
 
 # region -- Background features --------------
 
@@ -331,66 +417,66 @@ uninstall_reinstall_uninstall_options.place(relx=0.05, rely=0.17, anchor="w")
 # region -- Uninstall Check Boxes-----------------------
 # Uninstall Check Boxes----------------------------------
 
-uninstall_reinstall_uninstall_select_all_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_uninstall_select_all = customtkinter.CTkCheckBox(main_app, text="Select All", command=uninstall_reinstall_uninstall_select_all_f,
-                                      variable=uninstall_reinstall_uninstall_select_all_var, onvalue="on", offvalue="off", hover_color=hover_color,
+uninstall_select_all_var = customtkinter.StringVar(value="on")
+uninstall_select_all = customtkinter.CTkCheckBox(main_app, text="Select All", command=uninstall_select_all_f,
+                                      variable=uninstall_select_all_var, onvalue="on", offvalue="off", hover_color=hover_color,
                                       checkbox_width=20, checkbox_height=20, checkmark_color=background_color,
                                       corner_radius=0, border_width=1, fg_color=main_color, border_color=main_color, bg_color=background_color)
-uninstall_reinstall_uninstall_select_all.place(relx=0.05, rely=0.23, anchor="w")
+uninstall_select_all.place(relx=0.05, rely=0.23, anchor="w")
 
-uninstall_reinstall_uninstall_mc_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_uninstall_mc = customtkinter.CTkCheckBox(main_app, text="Uninstall Mastercam",
-                                               command=uninstall_reinstall_uninstall_mc_f,
-                                               variable=uninstall_reinstall_uninstall_mc_var, onvalue="on", offvalue="off",
+uninstall_mc_var = customtkinter.StringVar(value="on")
+uninstall_mc = customtkinter.CTkCheckBox(main_app, text="Uninstall Mastercam",
+                                               command=uninstall_mc_f,
+                                               variable=uninstall_mc_var, onvalue="on", offvalue="off",
                                                hover_color=hover_color,
                                                checkbox_width=20, checkbox_height=20,
                                                checkmark_color=background_color,
                                                corner_radius=0, border_width=1, fg_color=main_color,
                                                border_color=main_color,bg_color=background_color)
-uninstall_reinstall_uninstall_mc.place(relx=0.1, rely=0.28, anchor="w")
+uninstall_mc.place(relx=0.1, rely=0.28, anchor="w")
 
-uninstall_reinstall_my_backup_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_my_backup = customtkinter.CTkCheckBox(main_app, text="Backup My Mastercam Folder",
-                                            command=uninstall_reinstall_my_backup_f,
-                                            variable=uninstall_reinstall_my_backup_var, onvalue="on", offvalue="off",
+uninstall_my_backup_var = customtkinter.StringVar(value="on")
+uninstall_my_backup = customtkinter.CTkCheckBox(main_app, text="Backup My Mastercam Folder",
+                                            command=uninstall_my_backup_f,
+                                            variable=uninstall_my_backup_var, onvalue="on", offvalue="off",
                                             hover_color=hover_color,
                                             checkbox_width=20, checkbox_height=20, checkmark_color=background_color,
                                             corner_radius=0, border_width=1, fg_color=main_color,
                                             border_color=main_color, bg_color=background_color)
-uninstall_reinstall_my_backup.place(relx=0.1, rely=0.36, anchor="w")
+uninstall_my_backup.place(relx=0.1, rely=0.36, anchor="w")
 
-uninstall_reinstall_shared_backup_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_shared_backup = customtkinter.CTkCheckBox(main_app, text="Backup Shared Mastercam Folder",
-                                                command=uninstall_reinstall_shared_backup_f,
-                                                variable=uninstall_reinstall_shared_backup_var, onvalue="on", offvalue="off",
+uninstall_shared_backup_var = customtkinter.StringVar(value="on")
+uninstall_shared_backup = customtkinter.CTkCheckBox(main_app, text="Backup Shared Mastercam Folder",
+                                                command=uninstall_shared_backup_f,
+                                                variable=uninstall_shared_backup_var, onvalue="on", offvalue="off",
                                                 hover_color=hover_color,
                                                 checkbox_width=20, checkbox_height=20,
                                                 checkmark_color=background_color,
                                                 corner_radius=0, border_width=1, fg_color=main_color,
                                                 border_color=main_color, bg_color=background_color)
-uninstall_reinstall_shared_backup.place(relx=0.1, rely=0.44, anchor="w")
+uninstall_shared_backup.place(relx=0.1, rely=0.44, anchor="w")
 
-uninstall_reinstall_program_files_delete_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_program_files_delete = customtkinter.CTkCheckBox(main_app, text="Delete Program Files",
-                                                       command=uninstall_reinstall_program_files_delete_f,
-                                                       variable=uninstall_reinstall_program_files_delete_var, onvalue="on",
+uninstall_program_files_delete_var = customtkinter.StringVar(value="on")
+uninstall_program_files_delete = customtkinter.CTkCheckBox(main_app, text="Delete Program Files",
+                                                       command=uninstall_program_files_delete_f,
+                                                       variable=uninstall_program_files_delete_var, onvalue="on",
                                                        offvalue="off", hover_color=hover_color,
                                                        checkbox_width=20, checkbox_height=20,
                                                        checkmark_color=background_color,
                                                        corner_radius=0, border_width=1, fg_color=main_color,
                                                        border_color=main_color, bg_color=background_color)
-uninstall_reinstall_program_files_delete.place(relx=0.1, rely=0.52, anchor="w")
+uninstall_program_files_delete.place(relx=0.1, rely=0.52, anchor="w")
 
-uninstall_reinstall_registry_delete_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_registry_delete = customtkinter.CTkCheckBox(main_app, text="Delete Registries",
-                                                  command=uninstall_reinstall_registry_delete_f,
-                                                  variable=uninstall_reinstall_registry_delete_var, onvalue="on", offvalue="off",
+uninstall_registry_delete_var = customtkinter.StringVar(value="on")
+uninstall_registry_delete = customtkinter.CTkCheckBox(main_app, text="Delete Registries",
+                                                  command=uninstall_registry_delete_f,
+                                                  variable=uninstall_registry_delete_var, onvalue="on", offvalue="off",
                                                   hover_color=hover_color,
                                                   checkbox_width=20, checkbox_height=20,
                                                   checkmark_color=background_color,
                                                   corner_radius=0, border_width=1, fg_color=main_color,
                                                   border_color=main_color, bg_color=background_color)
-uninstall_reinstall_registry_delete.place(relx=0.1, rely=0.60, anchor="w")
+uninstall_registry_delete.place(relx=0.1, rely=0.60, anchor="w")
 
 #endregion
 
@@ -416,84 +502,84 @@ label_install_options.place(relx=0.55, rely=0.17, anchor="w")
 # endregion
 
 # region-- Segmente button----------------------------------
-uninstall_reinstall_language_select = customtkinter.CTkSegmentedButton(main_app, values=["English", "Other"],
-                                                     command=uninstall_reinstall_language_select_f, fg_color=background_color,
+install_language_select = customtkinter.CTkSegmentedButton(main_app, values=["English", "Other"],
+                                                     command=install_language_select_f, fg_color=background_color,
                                                     selected_color=main_color, unselected_color=background_color,
                                                     selected_hover_color=main_color, unselected_hover_color=hover_color,
-                                                    text_color="#c900b2", bg_color=background_color)
-uninstall_reinstall_language_select.set("English")
-uninstall_reinstall_language_select.place(relx=0.55, rely=0.23, anchor="w")
+                                                    text_color=text_color, bg_color=background_color)
+install_language_select.set("English")
+install_language_select.place(relx=0.55, rely=0.23, anchor="w")
 
 
-uninstall_reinstall_unit_select = customtkinter.CTkSegmentedButton(main_app, values=["Metric", "U.S."],
-                                                     command=uninstall_reinstall_unit_select_f, fg_color=background_color,
+install_unit_select = customtkinter.CTkSegmentedButton(main_app, values=["Metric", "U.S."],
+                                                     command=install_unit_select_f, fg_color=background_color,
                                                     selected_color=main_color, unselected_color=background_color,
                                                     selected_hover_color=main_color, unselected_hover_color=hover_color,
-                                                    text_color="#c900b2", bg_color=background_color)
-uninstall_reinstall_unit_select.set("Metric")
-uninstall_reinstall_unit_select.place(relx=0.55, rely=0.3, anchor="w")
+                                                    text_color=text_color, bg_color=background_color)
+install_unit_select.set("Metric")
+install_unit_select.place(relx=0.55, rely=0.3, anchor="w")
 
-uninstall_reinstall_users_select = customtkinter.CTkSegmentedButton(main_app, values=["All Users", "Only For Me"],
-                                                     command=uninstall_reinstall_users_select_f, fg_color=background_color,
+install_users_select = customtkinter.CTkSegmentedButton(main_app, values=["All Users", "Only For Me"],
+                                                     command=install_users_select_f, fg_color=background_color,
                                                     selected_color=main_color, unselected_color=background_color,
                                                     selected_hover_color=main_color, unselected_hover_color=hover_color,
-                                                    text_color="#c900b2", bg_color=background_color)
-uninstall_reinstall_users_select.set("All Users")
-uninstall_reinstall_users_select.place(relx=0.55, rely=0.37, anchor="w")
+                                                    text_color=text_color, bg_color=background_color)
+install_users_select.set("All Users")
+install_users_select.place(relx=0.55, rely=0.37, anchor="w")
 
 # endregion
 
 # region -- Install Check Boxes----------------------------------
 
-uninstall_reinstall_license_var = customtkinter.StringVar(value="off")
-uninstall_reinstall_license = customtkinter.CTkCheckBox(main_app, text="Yes, I accept the terms of the license agreement",
-                                                       command=uninstall_reinstall_license_f,
-                                                       variable=uninstall_reinstall_license_var, onvalue="on",
+install_license_var = customtkinter.StringVar(value="off")
+install_license = customtkinter.CTkCheckBox(main_app, text="Yes, I accept the terms of the license agreement",
+                                                       command=install_license_f,
+                                                       variable=install_license_var, onvalue="on",
                                                        offvalue="off", hover_color=hover_color,
                                                        checkbox_width=20, checkbox_height=20,
                                                        checkmark_color=background_color,
                                                        corner_radius=0, border_width=1, fg_color=main_color,
                                                        border_color=main_color, bg_color=background_color)
-uninstall_reinstall_license.place(relx=0.55, rely=0.44, anchor="w")
+install_license.place(relx=0.55, rely=0.44, anchor="w")
 
-uninstall_reinstall_restore_backup_var = customtkinter.StringVar(value="on")
-uninstall_reinstall_restore_backup = customtkinter.CTkCheckBox(main_app, text="Restore Backups",
-                                                       command=uninstall_reinstall_restore_backup_f,
-                                                       variable=uninstall_reinstall_restore_backup_var, onvalue="on",
+install_restore_backup_var = customtkinter.StringVar(value="on")
+install_restore_backup = customtkinter.CTkCheckBox(main_app, text="Restore Backups",
+                                                       command=install_restore_backup_f,
+                                                       variable=install_restore_backup_var, onvalue="on",
                                                        offvalue="off", hover_color=hover_color,
                                                        checkbox_width=20, checkbox_height=20,
                                                        checkmark_color=background_color,
                                                        corner_radius=0, border_width=1, fg_color=main_color,
                                                        border_color=main_color, bg_color=background_color)
-uninstall_reinstall_restore_backup.place(relx=0.55, rely=0.51, anchor="w")
+install_restore_backup.place(relx=0.55, rely=0.51, anchor="w")
 
 # endregion
 
 # region -- file select install
-uninstall_reinstall_file_entry_install = customtkinter.CTkEntry(main_app,width=250,placeholder_text="Select MC Install File...",border_color=main_color, border_width=1, bg_color=background_color)
-uninstall_reinstall_file_entry_install.place(relx=0.77, rely=0.6, anchor="center")
+install_file_entry_install = customtkinter.CTkEntry(main_app,width=250,placeholder_text="Select MC Install File...",border_color=main_color, border_width=1, bg_color=background_color)
+install_file_entry_install.place(relx=0.77, rely=0.6, anchor="center")
 
-uninstall_reinstall_select_install_file = customtkinter.CTkButton(main_app, text="O",
-                                                           command=uninstall_reinstall_select_install_file_f,
+install_select_install_file = customtkinter.CTkButton(main_app, text="O",
+                                                           command=install_select_install_file_f,
                                                            fg_color="transparent",
                                                            hover_color=hover_color, text_color=main_color, width=28,
                                                            height=28,
                                                            border_color=main_color, border_width=1, bg_color=background_color)
-uninstall_reinstall_select_install_file.place(relx=0.57, rely=0.6, anchor="center")
+install_select_install_file.place(relx=0.57, rely=0.6, anchor="center")
 
 # endregion
 
 # region -- file select language ------install------------------------
-uninstall_reinstall_file_entry_language = customtkinter.CTkEntry(main_app,width=150,placeholder_text="Select Language File...",border_color=main_color, border_width=1, bg_color=background_color)
-uninstall_reinstall_file_entry_language.place(relx=0.73, rely=0.23, anchor="w")
+install_file_entry_language = customtkinter.CTkEntry(main_app,width=150,placeholder_text="Select Language File...",border_color=main_color, border_width=1, bg_color=background_color)
+install_file_entry_language.place(relx=0.73, rely=0.23, anchor="w")
 
-uninstall_reinstall_select_language_file = customtkinter.CTkButton(main_app, text="O",
-                                                           command=uninstall_reinstall_select_language_file_f,
+install_select_language_file = customtkinter.CTkButton(main_app, text="O",
+                                                           command=install_select_language_file_f,
                                                            fg_color="transparent",
                                                            hover_color=hover_color, text_color=main_color, width=28,
                                                            height=28,
                                                            border_color=main_color, border_width=1, bg_color=background_color)
-uninstall_reinstall_select_language_file.place(relx=0.70, rely=0.23, anchor="center")
+install_select_language_file.place(relx=0.70, rely=0.23, anchor="center")
 
 # endregion
 
@@ -502,10 +588,10 @@ uninstall_reinstall_select_language_file.place(relx=0.70, rely=0.23, anchor="cen
 # region -- Dropdown----------------------------------------------------
 
 # Predefined list of options
-dropdown_options = ["Mastercam (version1)", "Mastercam (version2)", "Mastercam (version)"]
+dropdown_options = ["Mastercam (version1)", "Mastercam (version2)", "Mastercam (version3)"]
 
 # Create the OptionMenu widget
-dropdown = customtkinter.CTkOptionMenu(main_app,values=dropdown_options,fg_color=hover_color,button_color=dropdown_button_color,
+dropdown = customtkinter.CTkOptionMenu(main_app,values=dropdown_options,fg_color=hover_color,button_color=main_color,
                                        button_hover_color=hover_color,width=200,height=28 ,command=dropdown_callback_f, bg_color=background_color)
 dropdown.set("Select MC Version...")
 dropdown.place(relx=0.15, rely=0.07, anchor="center")
@@ -517,30 +603,30 @@ dropdown.place(relx=0.15, rely=0.07, anchor="center")
 # endregion
 
 # region -- Buttons Uninstall and Reinstall-----------------------------
-open_uninstall_settings = customtkinter.CTkButton(main_app, text="Uninstall", command=lambda: open_uninstall_settings_f(),
+start_uninstall = customtkinter.CTkButton(main_app, text="Uninstall", command=lambda: start_uninstall_f(),
                                                 fg_color="transparent",
-                                                hover_color=hover_color, text_color=main_color, width=125, height=28,
+                                                hover_color=hover_color, text_color=text_color, width=125, height=28,
                                                 border_color=main_color, border_width=1, bg_color=background_color)
-open_uninstall_settings.place(relx=0.45, rely=0.07, anchor="center")
+start_uninstall.place(relx=0.45, rely=0.07, anchor="center")
 
-open_uninstall_reinstall_settings = customtkinter.CTkButton(main_app, text="Uninstall/Reinstall",
-                                                command=lambda: open_uninstall_reinstall_settings_f(), fg_color="transparent",
-                                                hover_color=hover_color, text_color=main_color, width=125, height=28,
+start_install = customtkinter.CTkButton(main_app, text="Install",
+                                                command=lambda: start_install_f(), fg_color="transparent",
+                                                hover_color=hover_color, text_color=text_color, width=125, height=28,
                                                 border_color=main_color, border_width=1, bg_color=background_color)
-open_uninstall_reinstall_settings.place(relx=0.64, rely=0.07, anchor="center")
+start_install.place(relx=0.64, rely=0.07, anchor="center")
 # endregion
 
 # region -- Show files Button------------------------------------------
 show_files_on_pc_window = customtkinter.CTkButton(main_app, text="FOP", command=lambda: show_files_on_pc_window_f(),
                                                  fg_color="transparent",
-                                                 hover_color=hover_color, text_color=main_color, width=28, height=28,
+                                                 hover_color=hover_color, text_color=text_color, width=28, height=28,
                                                  border_color=main_color, border_width=1, bg_color=background_color)
 show_files_on_pc_window.place(relx=0.32, rely=0.07, anchor="center")
 ToolTip(show_files_on_pc_window, msg="Files On PC", delay=0.5)
 # endregion
 
 # region -- Progressbar----------------------------------------------
-label = customtkinter.CTkLabel(main_app, text="Progress  label", fg_color="transparent", text_color=main_color, bg_color=background_color)
+label = customtkinter.CTkLabel(main_app, text="Progress  label", fg_color="transparent", text_color=text_color, bg_color=background_color)
 label.place(relx=0.25, rely=0.73, anchor="w")
 
 progressbar = customtkinter.CTkProgressBar(main_app, orientation="horizontal", width=400, height=12, corner_radius=0,
@@ -551,7 +637,7 @@ progressbar.place(relx=0.5, rely=0.78, anchor="center")
 
 # region -- #Unistall Process----------------------------------------
 label_uninstall = customtkinter.CTkLabel(main_app, text="label_uninstall", fg_color="transparent",
-                                         text_color=main_color, bg_color=background_color)
+                                         text_color=text_color, bg_color=background_color)
 label_uninstall.place(relx=0.06, rely=0.83, anchor="w")
 
 button_uninstall_process = customtkinter.CTkButton(main_app, text="", fg_color="transparent", hover_color=hover_color,
@@ -597,7 +683,7 @@ ToolTip(button_registry_delete, msg="Registry Delete", delay=0.0)
 # Install
 
 label_reinstall = customtkinter.CTkLabel(main_app, text="label_reinstall", fg_color="transparent",
-                                         text_color=main_color, bg_color=background_color)
+                                         text_color=text_color, bg_color=background_color)
 label_reinstall.place(relx=0.55, rely=0.83, anchor="w")
 
 # Language Selected
